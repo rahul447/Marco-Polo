@@ -1,4 +1,4 @@
-# chat-app
+# marco-polo
 
 
 ## Setup
@@ -17,7 +17,7 @@
 
 ## Managing the project with Grunt
 
-* Runs eslint, babel:dist and mochaTest
+* Runs babel:dist and mochatest
 
     ```
     grunt
@@ -33,10 +33,4 @@
  
     ```
     grunt babel:dist
-    ```
-
-* Lints the .es6 files
-
-    ```
-    grunt eslint
     ```
