@@ -13,26 +13,36 @@ let nodeEnv = "local",
   config = Object.freeze(require("../config/" + nodeEnv)),
   app = express();
 
-if (cluster.isMaster) {
-  let numWorkers = os.cpus().length;
-  console.log('Master cluster setting up ' + numWorkers + ' workers...');
-  // Fork workers.
-  for(let i = 0; i < numWorkers; i++) {
-    cluster.fork();
+console.log(" NODE_ENV Set as", config.nodeEnv);
+
+if (config.nodeEnv !== 'test') {
+  if (cluster.isMaster) {
+    let numWorkers = os.cpus().length;
+    console.log('Master cluster setting up ' + numWorkers + ' workers...');
+    // Fork workers.
+    for(let i = 0; i < numWorkers; i++) {
+      cluster.fork();
+    }
+
+    cluster.on('online', function(worker) {
+      console.log('Worker ' + worker.process.pid + ' is online');
+    });
+
+    cluster.on('exit', function(worker, code, signal) {
+      console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
+      console.log('Starting a new worker');
+      cluster.fork();
+    });
+
+  } else {
+    serverSetup();
   }
-
-  cluster.on('online', function(worker) {
-    console.log('Worker ' + worker.process.pid + ' is online');
-  });
-
-  cluster.on('exit', function(worker, code, signal) {
-    console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
-    console.log('Starting a new worker');
-    cluster.fork();
-  });
-
 } else {
-//parse application/json and look for raw text
+  serverSetup();
+}
+
+function serverSetup() {
+  //parse application/json and look for raw text
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.text());
@@ -41,7 +51,7 @@ if (cluster.isMaster) {
   app.use(mwErrorHandler);
   app.use('/', routes());
 
-// Sets the relevant config app-wise
+  // Sets the relevant config app-wise
   app.set("port", config.http.port);
 
   app.use(function resourceNotFound(req, res, next) {
@@ -50,10 +60,11 @@ if (cluster.isMaster) {
     next(apiError);
   });
 
-// Starts the app
+  // Starts the app
   app.listen(app.get("port"), () => {
     console.log(new Date(), "Server has started and is listening on port: " + app.get("port") + ' with process '
       + process.pid);
   });
 }
+
 module.exports = app; // for testing

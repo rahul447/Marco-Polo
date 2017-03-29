@@ -3,7 +3,7 @@
 // eslint disable no-var
 
 var environmentVariables = {
-  // "MONGO_CONNECTION_STRING": process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017",
+  "NODE_ENV": process.env.NODE_ENV || "test"    // test (for mocha)  , dev
 };
 
 module.exports = environmentVariables;

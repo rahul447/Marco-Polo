@@ -9,7 +9,8 @@ var environmentVariables = require("./environmentVariables"),
       "domain": "127.0.0.1",
       "port": 8050
     },
-    "appName": "marco-polo"
+    "appName": "marco-polo",
+    "nodeEnv": environmentVariables.NODE_ENV
   };
 
 module.exports = config;
