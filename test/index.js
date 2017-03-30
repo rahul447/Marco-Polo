@@ -19,7 +19,7 @@ describe('/GET ',function(){
     var testData = {"START": 1, "END": 1000, "PERLINE": 10};
     chai.request(api).get("/" + testData.START + "/" + testData.END + "/" + testData.PERLINE).end(function(err, res){
       expect(res.status).to.equal(200);
-      expect(res.text).to.contain("macro");
+      expect(res.text).to.contain("marco");
       expect(res.text).to.contain("polo");
       expect(res.text).to.contain("marcopolo");
       done();

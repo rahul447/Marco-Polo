@@ -4,7 +4,7 @@ let router = express.Router();
 function playGame(startPoint, endPoint, perLine) {
 	let trace = "", content = "";
 	while(startPoint <= endPoint){
-    trace += (startPoint % 28 === 0) ? "marcopolo" : (startPoint % 7 === 0) ? "polo" : (startPoint % 4 === 0) ? "macro"
+    trace += (startPoint % 28 === 0) ? "marcopolo" : (startPoint % 7 === 0) ? "polo" : (startPoint % 4 === 0) ? "marco"
       : startPoint;
     trace += ", ";
     if(startPoint % perLine === 0) {
