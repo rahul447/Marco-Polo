@@ -1,36 +1,23 @@
 # marco-polo
 
 ## URL - Eg - http://127.0.0.1:8050/10/10000/10
-## Setup
 
-1. Check the npm packages:
+## Steps for running App
 
-    ```
+1.  Take clone
+    git clone https://github.com/rahul447/Marco-Polo.git
+
+2.  Install node Modules
     npm install
-    ```
 
-2. Start the application
+3.  Set Env for running grunt which includes mocha(test)
+    export NODE_ENV="test"
 
-    ```
-    node dist/api.js
-    ```
-
-## Managing the project with Grunt
-
-* Runs babel:dist and mochatest
-
-    ```
+4.  Run Grunt
     grunt
-    ```
 
-* Runs the tests (the same as ```npm test```) 
+5.  Set Env for node app via multiClustering
+    export NODE_ENV="dev"
 
-    ```
-    grunt mochatest
-    ```
-
-* Compiles the .es6 files to .js
- 
-    ```
-    grunt babel:dist
-    ```
+6.  Run app
+    node dist/api.js

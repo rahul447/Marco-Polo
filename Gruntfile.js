@@ -62,7 +62,7 @@ module.exports = function (grunt) {
   // Common build task
   grunt.registerTask("buildCommon", [
     "clean",
-    "babel",
+    "babel"
   ]);
 
   // Common test task
